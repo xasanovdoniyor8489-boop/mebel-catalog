@@ -1,7 +1,6 @@
 import os, sqlite3, shutil, uuid
 from typing import Optional
 from fastapi import FastAPI, UploadFile, File, Form
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,12 +9,11 @@ os.makedirs("static/uploads", exist_ok=True)
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-    try:
+try:
+    from fastapi.staticfiles import StaticFiles
     app.mount("/static", StaticFiles(directory="static"), name="static")
-except Exception:
-    pass
-except Exception:
-    pass
+except Exception as e:
+    print(f"Static mount skipped: {e}")
 
 DB = "catalog.db"
 
