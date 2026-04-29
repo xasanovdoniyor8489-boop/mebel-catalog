@@ -3,3 +3,5 @@ uvicorn==0.29.0
 python-multipart==0.0.9
 aiosqlite==0.20.0
 aiogram==3.7.0
+pydantic==2.7.4
+pydantic-core==2.18.4
