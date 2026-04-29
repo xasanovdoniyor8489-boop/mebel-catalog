@@ -1,16 +1,19 @@
-import os
-os.makedirs("static/uploads", exist_ok=True)
-
+import os, sqlite3, shutil, uuid
+from typing import Optional
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-import sqlite3, shutil, uuid
-from typing import Optional
+
+os.makedirs("static/uploads", exist_ok=True)
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
+try:
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+except Exception:
+    pass
 
 DB = "catalog.db"
 
@@ -21,9 +24,9 @@ def get_db():
 
 def init_db():
     conn = get_db()
-    conn.execute("CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, icon TEXT DEFAULT '📦', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
-    conn.execute("CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, name TEXT NOT NULL, icon TEXT DEFAULT '📁', FOREIGN KEY (group_id) REFERENCES groups(id))")
-    conn.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, category_id INTEGER, name TEXT NOT NULL, description TEXT, colors TEXT DEFAULT '', sizes TEXT DEFAULT '', photo TEXT DEFAULT '', FOREIGN KEY (category_id) REFERENCES categories(id))")
+    conn.execute("CREATE TABLE IF NOT EXISTS groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, icon TEXT DEFAULT '📦')")
+    conn.execute("CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER, name TEXT NOT NULL, icon TEXT DEFAULT '📁')")
+    conn.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, category_id INTEGER, name TEXT NOT NULL, description TEXT, colors TEXT DEFAULT '', sizes TEXT DEFAULT '', photo TEXT DEFAULT '')")
     conn.commit()
     conn.close()
 
