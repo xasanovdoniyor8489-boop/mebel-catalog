@@ -10,8 +10,10 @@ os.makedirs("static/uploads", exist_ok=True)
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-try:
-    
+    try:
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+except Exception:
+    pass
 except Exception:
     pass
 
