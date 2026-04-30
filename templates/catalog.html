@@ -95,7 +95,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="colors-list" id="mColors"></div>
       <div class="section-label">O'lchamlar</div>
       <div class="sizes-grid" id="mSizes"></div>
-      <button class="contact-btn" onclick="contactAdmin()">💬 Bog'lanish</button>
+      function contactAdmin(){
+  closeModal();
+  window.open('https://t.me/ElyorMurotaliyev', '_blank');
+  if(window.Telegram?.WebApp){
+    window.Telegram.WebApp.close();
+  }
+}
     </div>
   </div>
 </div>
