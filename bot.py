@@ -8,7 +8,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN")
-WEB_APP_URL = os.getenv("WEB_APP_URL", "https://your-app.railway.app/catalog")
+WEB_APP_URL = os.getenv("WEB_APP_URL", "https://mebel-catalog-1.onrender.com/catalog")
 
 async def main():
     bot = Bot(token=BOT_TOKEN)
