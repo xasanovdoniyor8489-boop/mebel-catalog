@@ -223,7 +223,9 @@ function handleModalClick(e){
 function contactAdmin(){
   closeModal();
   if(window.Telegram?.WebApp){
-    window.Telegram.WebApp.close();
+    window.Telegram.WebApp.openTelegramLink('https://t.me/ElyorMurotaliyev');
+  } else {
+    window.open('https://t.me/ElyorMurotaliyev', '_blank');
   }
 }
 
