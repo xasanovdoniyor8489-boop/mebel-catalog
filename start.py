@@ -1,6 +1,10 @@
-import subprocess
+import asyncio
 import sys
 import os
 
-port = os.getenv("PORT", "8000")
-subprocess.run([sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", port])
+sys.path.insert(0, os.path.dirname(__file__))
+
+from bot import main
+
+if __name__ == "__main__":
+    asyncio.run(main())
