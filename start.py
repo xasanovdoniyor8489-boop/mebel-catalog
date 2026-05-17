@@ -1,6 +1,5 @@
-import subprocess
-import sys
-import os
+import asyncio
+from scheduler import main
 
-port = os.getenv("PORT", "8000")
-subprocess.run([sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", port])
+if __name__ == "__main__":
+    asyncio.run(main())
